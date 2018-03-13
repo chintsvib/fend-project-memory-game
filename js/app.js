@@ -56,7 +56,7 @@ function startGame() {
 
     const deck = document.getElementsByClassName("deck");
 
-    for (var i = 0; i < cards.length; i++) {
+    for (let i = 0; i < cards.length; i++) {
         deck.innerHTML = "";
         [].forEach.call(cards, function(item) {
             deck[0].appendChild(item)
@@ -70,7 +70,7 @@ function startGame() {
     counter.innerHTML = moves;
 
     //reset rating
-    for (var i=0; i < stars.length; i++) {
+    for (let i=0; i < stars.length; i++) {
         stars[i].style.color = "#FFD700"
         stars[i].style.visibility = "visible"
     }
@@ -79,10 +79,12 @@ function startGame() {
     scecond = 0
     minute = 0
     hour = 0
-    var timer = document.querySelector(".timer")
+    let timer = document.querySelector(".timer")
     timer.innerHTML = "0 min 0 secs";
     clearInterval(interval)
 
+    //reset openedCards
+    openedCards = []
 
 };
     
@@ -236,17 +238,35 @@ function matched() {
 
 function unmatched() {  
     // console.log("unmatched")
-    openedCards[0].classList.add("unmatched", "disabled");
-    openedCards[1].classList.add("unmatched", "disabled");
+    openedCards[0].classList.add("unmatched");
+    openedCards[1].classList.add("unmatched");
+    disable();
     setTimeout(function(){
-        openedCards[0].classList.remove("show", "open", "unmatched");
-        openedCards[1].classList.remove("show", "open", "unmatched");
+        openedCards[0].classList.remove("show", "open", "no-event", "unmatched");
+        openedCards[1].classList.remove("show", "open", "no-event", "unmatched");
+        enable();
         openedCards = [];
     }, 1000);
 
 
 };
 
+// @description disable cards temporarily
+function disable(){
+    Array.prototype.filter.call(cards, function(card){
+        card.classList.add('disabled');
+    });
+}
+
+// @description enable cards and disable matched cards
+function enable(){
+    Array.prototype.filter.call(cards, function(card){
+        card.classList.remove('disabled');
+        for(var i = 0; i < matchedCard.length; i++){
+            matchedCard[i].classList.add("disabled");
+        }
+    });
+}
 
 for (let i = 0; i < cards.length; i++) {
     card = cards[i]
