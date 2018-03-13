@@ -15,6 +15,11 @@ let matchedCard = document.getElementsByClassName("match")
 let closeicon = document.querySelector(".close");
 
 let modal = document.getElementById("popup1")
+// declare variables for star icons
+const stars = document.querySelectorAll(".fa-star");
+
+// stars list
+let starsList = document.querySelectorAll(".stars li");
 
 
 // Shuffle function from http://stackoverflow.com/a/2450976
@@ -47,7 +52,7 @@ function startGame() {
 
     // console.log("startGame")
 
-    //cards = shuffle(cards)
+    cards = shuffle(cards)
 
     const deck = document.getElementsByClassName("deck");
 
@@ -63,6 +68,22 @@ function startGame() {
     //reset moves
     moves = 0;
     counter.innerHTML = moves;
+
+    //reset rating
+    for (var i=0; i < stars.length; i++) {
+        stars[i].style.color = "#FFD700"
+        stars[i].style.visibility = "visible"
+    }
+
+    //reset timer
+    scecond = 0
+    minute = 0
+    hour = 0
+    var timer = document.querySelector(".timer")
+    timer.innerHTML = "0 min 0 secs";
+    clearInterval(interval)
+
+
 };
     
 
@@ -97,7 +118,7 @@ function openCardList(card) {
     openedCards.push(this);
     // console.log(card)
 
-    if (openedCards.length == 2) {
+    if (openedCards.length === 2) {
         moveCounter()
         if (openedCards[0].innerHTML === openedCards[1].innerHTML) {
             //console.log(openedCards[0])
@@ -111,18 +132,60 @@ function openCardList(card) {
 
 };
 
+// @description game timer
+var second = 0, minute = 0; hour = 0;
+var timer = document.querySelector(".timer");
+var interval;
+function startTimer(){
+    interval = setInterval(function(){
+        timer.innerHTML = minute+"mins "+second+"secs";
+        second++;
+        if(second == 60){
+            minute++;
+            second=0;
+        }
+        if(minute == 60){
+            hour++;
+            minute = 0;
+        }
+    },1000);
+}
+
 function moveCounter(){ 
 
     moves++;
 
     counter.innerHTML = moves;
+    //start timer on first click
+    if (moves == 1) {
+        second = 0
+        minute = 0;
+        hour = 0;
+        startTimer()
+    }
+    // setting rates based on moves
+    if (moves > 8 && moves < 12){
+        for( i= 0; i < 3; i++){
+            if(i > 1){
+                stars[i].style.visibility = "collapse";
+            }
+        }
+    }
+    else if (moves > 13){
+        for( i= 0; i < 3; i++){
+           
+            if(i > 0){
+                stars[i].style.visibility = "collapse";
+            }
+        }
+    }
 
 }
 
 function congrats(){
-    if (matchedCard.length == 2){
-        // clearInterval(interval);
-        //finalTime = timer.innerHTML;
+    if (matchedCard.length == 16){
+        clearInterval(interval);
+        finalTime = timer.innerHTML;
 
         // show congratulations modal
         modal.classList.add("show");
@@ -133,7 +196,7 @@ function congrats(){
         //showing move, rating, time on modal
         document.getElementById("finalMove").innerHTML = moves;
         document.getElementById("starRating").innerHTML = starRating;
-        //document.getElementById("totalTime").innerHTML = finalTime;
+        document.getElementById("totalTime").innerHTML = finalTime;
 
         //closeicon on modal
         closeModal();

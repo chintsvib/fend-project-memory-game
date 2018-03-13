@@ -108,6 +108,11 @@ h1 {
     cursor: pointer;
 }
 
+.timer {
+    display: inline-block;
+    margin: 0 1rem;
+}
+
 .overlay {
     position: fixed;
     top: 0;
