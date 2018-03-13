@@ -1,20 +1,16 @@
-# Memory Game Project
+## Memory Game Project
 
-## Table of Contents
+This is a simple Memory Game project to test your memory. 
 
-* [Instructions](#instructions)
-* [Contributing](#contributing)
+Random sixteen cards will be presented flipped down to you. You have to click on one and try to find the same card again to move ahead.
+
+Once all cards are matched, you win the game.
 
 ## Instructions
 
-The starter project has some HTML and CSS styling to display a static version of the Memory Game project. You'll need to convert this project from a static project to an interactive one. This will require modifying the HTML and CSS files, but primarily the JavaScript file.
+The main file is index.html.
 
-To get started, open `js/app.js` and start building out the app's functionality
+All of the styling is done in css/app.css.
 
-For specific, detailed instructions, look at the project instructions in the [Udacity Classroom](https://classroom.udacity.com/me).
+All of the programming is done in js/app.css
 
-## Contributing
-
-This repository is the starter code for _all_ Udacity students. Therefore, we most likely will not accept pull requests.
-
-For details, check out [CONTRIBUTING.md](CONTRIBUTING.md).
